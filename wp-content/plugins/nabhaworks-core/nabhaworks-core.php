@@ -176,9 +176,117 @@ add_action('wp_enqueue_scripts', function () {
         'nabha-fonti',
         plugins_url('assets/fonti.css', __FILE__),
         [],
-        '1.1.0'
+        '1.2.0'
     );
     if (is_singular(['post', 'nabha_progetto'])) {
         wp_enqueue_style('nabha-fonti');
     }
+    if (is_singular(['post', 'nabha_progetto', 'page'])) {
+        wp_enqueue_style('nabha-fonti');
+    }
+});
+/* -------------------------------------------------------------
+ * 5. SHORTCODE [nabha_tematiche] — card delle serie tematiche
+ * ------------------------------------------------------------- */
+add_shortcode('nabha_tematiche', function () {
+    $out = '<div class="nabha-tematiche">';
+
+    foreach (nabhaworks_default_categories() as $slug => $name) {
+        $term = get_term_by('slug', $slug, 'category');
+        if (!$term) {
+            continue;
+        }
+        $desc = term_description($term);
+        if (!$desc) {
+            $desc = 'Articoli e novità di questa area di ricerca.';
+        }
+
+        $out .= sprintf(
+            '<a class="nabha-tematica" href="%s"><h3>%s</h3><p>%s</p><span class="nabha-tematica-count">%d %s →</span></a>',
+            esc_url(get_category_link($term)),
+            esc_html($term->name),
+            wp_kses_post($desc),
+            (int) $term->count,
+            $term->count === 1 ? 'articolo' : 'articoli'
+        );
+    }
+
+    return $out . '</div>';
+});
+/* -------------------------------------------------------------
+ * 6. SHORTCODE [nabha_observatorivm] — raccolta articoli
+ *    Hero con l'ultimo articolo + griglia dei precedenti
+ * ------------------------------------------------------------- */
+add_shortcode('nabha_observatorivm', function () {
+    $q = new WP_Query([
+        'post_type'           => 'post',
+        'posts_per_page'      => 13, // 1 hero + 12 card
+        'ignore_sticky_posts' => true,
+    ]);
+
+    if (!$q->have_posts()) {
+        return '<p><em>Observatorivm è in allestimento: nessun articolo pubblicato.</em></p>';
+    }
+
+    ob_start();
+    echo '<div class="nabha-oss">';
+
+    // --- HERO: l'ultimo articolo pubblicato ---
+    $q->the_post();
+    $cats = get_the_category();
+    $cat  = $cats ? $cats[0] : null;
+    ?>
+    <section class="nabha-oss-hero">
+        <article>
+            <?php if (has_post_thumbnail()) : ?>
+                <a class="nabha-oss-hero-img" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('large'); ?></a>
+            <?php endif; ?>
+            <div class="nabha-oss-hero-body">
+                <span class="nabha-oss-badge">Ultimo articolo</span>
+                <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                <p class="nabha-oss-meta">
+                    <?php echo $cat ? esc_html($cat->name) . ' · ' : ''; ?><?php echo esc_html(get_the_date('j F Y')); ?>
+                </p>
+                <p class="nabha-oss-excerpt"><?php echo esc_html(get_the_excerpt()); ?></p>
+                <a class="nabha-oss-more" href="<?php the_permalink(); ?>">Leggi l'articolo →</a>
+            </div>
+        </article>
+    </section>
+    <?php
+
+    // --- GRIGLIA: notizie più vecchie ---
+    echo '<div class="nabha-oss-grid">';
+    while ($q->have_posts()) :
+        $q->the_post();
+        $cats = get_the_category();
+        $cat  = $cats ? $cats[0] : null;
+        ?>
+        <article class="nabha-oss-card">
+            <a class="nabha-oss-card-img" href="<?php the_permalink(); ?>">
+                <?php
+                if (has_post_thumbnail()) {
+                    the_post_thumbnail('medium');
+                } else {
+                    echo '<span class="nabha-oss-card-placeholder">📜</span>';
+                }
+                ?>
+            </a>
+            <div class="nabha-oss-card-body">
+                <p class="nabha-oss-meta">
+                    <?php echo $cat ? esc_html($cat->name) . ' · ' : ''; ?><?php echo esc_html(get_the_date('j F Y')); ?>
+                </p>
+                <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                <p><?php echo esc_html(wp_trim_words(get_the_excerpt(), 18)); ?></p>
+            </div>
+        </article>
+        <?php
+    endwhile;
+    echo '</div>';
+
+    echo '<p class="nabha-oss-archive"><a href="' . esc_url(home_url('/tematiche/')) . '">Esplora per serie tematiche →</a></p>';
+
+    echo '</div>';
+    wp_reset_postdata();
+
+    return ob_get_clean();
 });
