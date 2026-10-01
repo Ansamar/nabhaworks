@@ -2,8 +2,8 @@
 /**
  * Plugin Name: NabhaWorks Core
  * Plugin URI:  https://nabhaworks.altervista.org/
- * Description: Categorie editoriali del blog, portfolio (CPT Progetti) e sezione "Fonti e approfondimenti".
- * Version:     1.1.0
+ * Description: Categorie editoriali, portfolio (CPT Progetti), sezione "Fonti e approfondimenti", card Tematiche e Observatorivm.
+ * Version:     1.2.0
  * Author:      Mario Ansaldi
  * License:     GPL-2.0-or-later
  * Text Domain: nabhaworks-core
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 }
 
 /* -------------------------------------------------------------
- * 1. CATEGORIE EDITORIALI DEL BLOG (create automaticamente)
+ * 1. CATEGORIE EDITORIALI DEL BLOG
  * ------------------------------------------------------------- */
 
 function nabhaworks_default_categories(): array {
@@ -36,8 +36,6 @@ function nabhaworks_ensure_categories(): void {
 }
 
 register_activation_hook(__FILE__, 'nabhaworks_ensure_categories');
-
-// Rete di sicurezza: ricrea la categoria se qualcuno la cancella per errore
 add_action('admin_init', 'nabhaworks_ensure_categories');
 
 /* -------------------------------------------------------------
@@ -60,7 +58,7 @@ add_action('init', function () {
         'public'        => true,
         'has_archive'   => true,
         'rewrite'       => ['slug' => 'progetti'],
-        'show_in_rest'  => true, // indispensabile per Gutenberg
+        'show_in_rest'  => true,
         'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'revisions'],
         'menu_icon'     => 'dashicons-book-alt',
         'menu_position' => 5,
@@ -80,8 +78,6 @@ add_action('init', function () {
 
 /* -------------------------------------------------------------
  * 3. FONTI E APPROFONDIMENTI
- *    Meta box nell'editor + sezione a fine articolo.
- *    Formato: una fonte per riga —  Descrizione | URL
  * ------------------------------------------------------------- */
 
 const NABHA_FONTI_META = '_nabha_fonti';
@@ -178,13 +174,11 @@ add_action('wp_enqueue_scripts', function () {
         [],
         '1.2.0'
     );
-    if (is_singular(['post', 'nabha_progetto'])) {
-        wp_enqueue_style('nabha-fonti');
-    }
     if (is_singular(['post', 'nabha_progetto', 'page'])) {
         wp_enqueue_style('nabha-fonti');
     }
 });
+
 /* -------------------------------------------------------------
  * 5. SHORTCODE [nabha_tematiche] — card delle serie tematiche
  * ------------------------------------------------------------- */
@@ -213,14 +207,14 @@ add_shortcode('nabha_tematiche', function () {
 
     return $out . '</div>';
 });
+
 /* -------------------------------------------------------------
- * 6. SHORTCODE [nabha_observatorivm] — raccolta articoli
- *    Hero con l'ultimo articolo + griglia dei precedenti
+ * 6. SHORTCODE [nabha_observatorivm] — hero ultimo articolo + griglia
  * ------------------------------------------------------------- */
 add_shortcode('nabha_observatorivm', function () {
     $q = new WP_Query([
         'post_type'           => 'post',
-        'posts_per_page'      => 13, // 1 hero + 12 card
+        'posts_per_page'      => 13,
         'ignore_sticky_posts' => true,
     ]);
 
@@ -231,7 +225,7 @@ add_shortcode('nabha_observatorivm', function () {
     ob_start();
     echo '<div class="nabha-oss">';
 
-    // --- HERO: l'ultimo articolo pubblicato ---
+    // HERO: l'ultimo articolo pubblicato
     $q->the_post();
     $cats = get_the_category();
     $cat  = $cats ? $cats[0] : null;
@@ -254,7 +248,7 @@ add_shortcode('nabha_observatorivm', function () {
     </section>
     <?php
 
-    // --- GRIGLIA: notizie più vecchie ---
+    // GRIGLIA: articoli precedenti
     echo '<div class="nabha-oss-grid">';
     while ($q->have_posts()) :
         $q->the_post();
