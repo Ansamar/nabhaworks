@@ -19,7 +19,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: wp-content/themes/blocksy-child/
           server-dir: /wp-content/themes/blocksy-child/
-          dangerous-cleaner: false
+          state-name: deploy-tema-v2.yml
 
       - name: Carica plugin NabhaWorks Core
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -29,4 +29,4 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: wp-content/plugins/nabhaworks-core/
           server-dir: /wp-content/plugins/nabhaworks-core/
-          dangerous-cleaner: false
+          state-name: deploy-plugin-v2.yml
