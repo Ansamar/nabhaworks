@@ -11,6 +11,15 @@ jobs:
       - name: Scarica il codice
         uses: actions/checkout@v4
 
+      - name: Debug — radiografia FTP (temporaneo, da rimuovere dopo)
+        run: |
+          echo "=== ROOT FTP ==="
+          curl -sS "ftp://${{ secrets.FTP_SERVER }}/" --user "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          echo ""
+          echo "=== CARTELLA PLUGIN ==="
+          curl -sS "ftp://${{ secrets.FTP_SERVER }}/wp-content/plugins/nabhaworks-core/" --user "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          echo ""
+
       - name: Carica tema child
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
