@@ -11,15 +11,6 @@ jobs:
       - name: Scarica il codice
         uses: actions/checkout@v4
 
-      - name: Debug — radiografia FTP (temporaneo, da rimuovere dopo)
-        run: |
-          echo "=== ROOT FTP ==="
-          curl -sS "ftp://${{ secrets.FTP_SERVER }}/" --user "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
-          echo ""
-          echo "=== CARTELLA PLUGIN ==="
-          curl -sS "ftp://${{ secrets.FTP_SERVER }}/wp-content/plugins/nabhaworks-core/" --user "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
-          echo ""
-
       - name: Carica tema child
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -27,8 +18,8 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: wp-content/themes/blocksy-child/
-          server-dir: /wp-content/themes/blocksy-child/
-          state-name: deploy-tema-v2.yml
+          server-dir: /themes/blocksy-child/
+          state-name: deploy-tema-v3.yml
 
       - name: Carica plugin NabhaWorks Core
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -37,5 +28,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: wp-content/plugins/nabhaworks-core/
-          server-dir: /wp-content/plugins/nabhaworks-core/
-          state-name: deploy-plugin-v2.yml
+          server-dir: /plugins/nabhaworks-core/
+          state-name: deploy-plugin-v3.yml
