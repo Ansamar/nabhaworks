@@ -1,0 +1,38 @@
+body.nw-single{background:#12162b;color:#e9ecf6;overflow-x:hidden}
+.nw-article{--acc:#e0a44e;--card:#1a2040;--line:#2c3563;--muted:#a8afc7;color:#e9ecf6;font:19px/1.75 Georgia,"Times New Roman",serif}
+.nw-cat-archeologia-e-storia{--acc:#d98a4a}
+.nw-cat-studi-e-interpretazione{--acc:#7fa0ff}
+.nw-cat-manoscritti-e-testi{--acc:#b58cf0}
+.nw-cat-ricerca-e-strumenti{--acc:#4fc3b0}
+.nw-cat-risorse-digitali{--acc:#f07f9a}
+.nw-article a{text-decoration:none;color:inherit}
+.nw-wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.nw-hero{width:100vw;margin-left:calc(50% - 50vw);background:linear-gradient(180deg,#1c2750,#2a376b 140%);padding:56px 0 150px}
+.nw-crumb{font:14px system-ui,sans-serif;color:#c5cbe3;margin:0 0 18px}
+.nw-tag{display:inline-block;font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border-bottom:2px solid var(--acc);padding-bottom:4px;margin:0 0 16px}
+.nw-title{font:400 clamp(2rem,5vw,3.4rem)/1.15 Georgia,serif;margin:0 0 18px;max-width:22ch;color:#fff}
+.nw-meta{font:15px system-ui,sans-serif;color:#c5cbe3;margin:0}
+.nw-layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:56px;margin-top:-110px;padding-bottom:72px}
+.nw-cover{margin:0 0 36px}
+.nw-cover img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:6px;border-bottom:4px solid var(--acc)}
+.nw-cover figcaption{font:13px system-ui,sans-serif;color:var(--muted);margin-top:8px}
+.nw-text{max-width:68ch}
+.nw-text p{margin:0 0 1.3em}
+.nw-text h2,.nw-text h3{color:#fff;font-family:Georgia,serif;line-height:1.3;margin:1.8em 0 .6em}
+.nw-text a{color:var(--acc);text-decoration:underline}
+.nw-text blockquote{border-left:4px solid var(--acc);background:var(--card);padding:16px 24px;margin:2em 0}
+.nw-nav{display:grid;grid-template-columns:1fr 1fr;gap:24px;border-top:1px solid var(--line);padding:32px 0 0;margin-top:48px;font-family:system-ui,sans-serif}
+.nw-nav small{display:block;color:var(--muted)}.nw-nav b{font:600 1.1rem Georgia,serif}.nw-next{text-align:right}
+.nw-aside{align-self:start;position:sticky;top:24px;margin-top:110px;font-family:system-ui,sans-serif}
+.nw-side{border-top:3px solid var(--acc);padding-top:16px;margin-bottom:36px}
+.nw-side h2{font:600 13px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin:0 0 14px;color:var(--muted)}
+.nw-rel{display:grid;grid-template-columns:84px 1fr;gap:14px;margin-bottom:18px}
+.nw-thumb{display:block;aspect-ratio:1;border-radius:4px;overflow:hidden;background:linear-gradient(135deg,#2a376b,#12162b)}
+.nw-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.nw-rel b{display:block;font:600 16px/1.35 Georgia,serif}
+.nw-rel:hover b{text-decoration:underline}
+.nw-rel small{font-size:13px;color:var(--muted)}
+.nw-chips{display:flex;flex-wrap:wrap;gap:8px}
+.nw-chips a{font:600 13px system-ui,sans-serif;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.nw-chips a:hover{border-color:var(--acc)}
+@media(max-width:900px){.nw-layout{grid-template-columns:1fr;gap:16px}.nw-aside{position:static;margin-top:24px}.nw-hero{padding-bottom:120px}}
