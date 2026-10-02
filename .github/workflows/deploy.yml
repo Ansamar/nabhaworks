@@ -30,7 +30,8 @@ jobs:
           local-dir: wp-content/plugins/nabhaworks-core/
           server-dir: /plugins/nabhaworks-core/
           state-name: deploy-plugin-v3.yml
-                - name: Carica plugin NabhaWorks Layout
+
+      - name: Carica plugin NabhaWorks Layout
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
