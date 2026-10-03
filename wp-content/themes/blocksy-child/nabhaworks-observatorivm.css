@@ -1,1 +1,26 @@
-    
+  /* ============================================================
+   NabhaWorks — CSS globale del child theme
+   Regole generali del sito (font, sfondi, link...).
+   Il design blu notte attuale viene dalle impostazioni
+   Blocksy (Personalizza → Colori/Tipografia).
+   Le regole specifiche di Observatorivm stanno in
+   nabhaworks-observatorivm.css
+   ============================================================ */
+   
+  /* Observatorivm (versione scura) - Aspetto > Personalizza > CSS aggiuntivo > incolla > Pubblica */
+.obs-row{gap:10px !important;align-items:center}
+.obs-btns{gap:10px}
+.obs-btns .wp-block-button__link:hover{filter:brightness(1.25)}
+.obs-search{margin-left:auto !important;min-width:240px}
+.obs-search input{border:1px solid #2c3563 !important;border-radius:999px !important;background:#1a2040 !important;color:#e9ecf6 !important;padding:10px 18px !important;font-size:15px}
+.obs-search input::placeholder{color:#a8afc7}
+.obs-search button{background:#1a2040 !important;color:#e9ecf6 !important;border:1px solid #2c3563 !important;border-radius:999px !important}
+.obs-tag,.obs-tag a{font:600 12px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#e0a44e !important;text-decoration:none !important;margin:0 0 6px}
+.obs-meta{font:14px system-ui,sans-serif;color:#a8afc7;margin:0 0 6px}
+.obs-feat{padding-bottom:48px;margin-bottom:48px;border-bottom:1px solid #2c3563}
+.obs-main .wp-block-post-title,.obs-main .wp-block-post-title a{color:#e9ecf6 !important;text-decoration:none}
+.obs-main .wp-block-post-title a:hover{text-decoration:underline}
+.obs-main .wp-block-post-excerpt,.obs-main .wp-block-post-excerpt p{color:#a8afc7 !important;font-size:1rem}
+.obs-main .wp-block-post-excerpt__more-link{color:#e0a44e !important}
+.obs-main .wp-block-query-pagination a,.obs-main .wp-block-query-pagination-numbers{color:#e9ecf6 !important}
+@media(max-width:760px){.obs-search{margin-left:0 !important;width:100%}}
