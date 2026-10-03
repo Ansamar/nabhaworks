@@ -3,7 +3,7 @@
  * Plugin Name: NabhaWorks Core
  * Plugin URI:  https://nabhaworks.altervista.org/
  * Description: Categorie editoriali, portfolio (CPT Progetti), sezione "Fonti e approfondimenti", card Tematiche e Observatorivm.
- * Version:     1.2.0
+ * Version:     1.3.0
  * Author:      Mario Ansaldi
  * License:     GPL-2.0-or-later
  * Text Domain: nabhaworks-core
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 }
 
 /* -------------------------------------------------------------
- * 1. CATEGORIE EDITORIALI DEL BLOG
+ * 1. CATEGORIE EDITORIALI DEL BLOG (create automaticamente)
  * ------------------------------------------------------------- */
 
 function nabhaworks_default_categories(): array {
@@ -36,6 +36,8 @@ function nabhaworks_ensure_categories(): void {
 }
 
 register_activation_hook(__FILE__, 'nabhaworks_ensure_categories');
+
+// Rete di sicurezza: ricrea la categoria se qualcuno la cancella per errore
 add_action('admin_init', 'nabhaworks_ensure_categories');
 
 /* -------------------------------------------------------------
@@ -58,12 +60,13 @@ add_action('init', function () {
         'public'        => true,
         'has_archive'   => true,
         'rewrite'       => ['slug' => 'progetti'],
-        'show_in_rest'  => true,
+        'show_in_rest'  => true, // indispensabile per Gutenberg
         'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'revisions'],
         'menu_icon'     => 'dashicons-book-alt',
         'menu_position' => 5,
     ]);
 
+    // Tassonomia "Argomenti" per organizzare i progetti
     register_taxonomy('nabha_argomento', 'nabha_progetto', [
         'labels' => [
             'name'          => 'Argomenti',
@@ -78,6 +81,8 @@ add_action('init', function () {
 
 /* -------------------------------------------------------------
  * 3. FONTI E APPROFONDIMENTI
+ *    Meta box nell'editor + sezione a fine articolo.
+ *    Formato: una fonte per riga —  Descrizione | URL
  * ------------------------------------------------------------- */
 
 const NABHA_FONTI_META = '_nabha_fonti';
@@ -165,14 +170,14 @@ add_filter('the_content', function ($content) {
 });
 
 /* -------------------------------------------------------------
- * 4. STILI
+ * 4. STILI (versione 1.3.0 = cache-busting)
  * ------------------------------------------------------------- */
 add_action('wp_enqueue_scripts', function () {
     wp_register_style(
         'nabha-fonti',
         plugins_url('assets/fonti.css', __FILE__),
         [],
-        '1.2.0'
+        '1.3.0'
     );
     if (is_singular(['post', 'nabha_progetto', 'page'])) {
         wp_enqueue_style('nabha-fonti');
@@ -209,12 +214,13 @@ add_shortcode('nabha_tematiche', function () {
 });
 
 /* -------------------------------------------------------------
- * 6. SHORTCODE [nabha_observatorivm] — hero ultimo articolo + griglia
+ * 6. SHORTCODE [nabha_observatorivm] — raccolta articoli
+ *    Hero con l'ultimo articolo + griglia dei precedenti
  * ------------------------------------------------------------- */
 add_shortcode('nabha_observatorivm', function () {
     $q = new WP_Query([
         'post_type'           => 'post',
-        'posts_per_page'      => 13,
+        'posts_per_page'      => 13, // 1 hero + 12 card
         'ignore_sticky_posts' => true,
     ]);
 
@@ -225,7 +231,7 @@ add_shortcode('nabha_observatorivm', function () {
     ob_start();
     echo '<div class="nabha-oss">';
 
-    // HERO: l'ultimo articolo pubblicato
+    // --- HERO: l'ultimo articolo pubblicato ---
     $q->the_post();
     $cats = get_the_category();
     $cat  = $cats ? $cats[0] : null;
@@ -248,7 +254,7 @@ add_shortcode('nabha_observatorivm', function () {
     </section>
     <?php
 
-    // GRIGLIA: articoli precedenti
+    // --- GRIGLIA: articoli precedenti ---
     echo '<div class="nabha-oss-grid">';
     while ($q->have_posts()) :
         $q->the_post();

@@ -1,20 +1,29 @@
-/* -------------------------------------------------------------
+/* ============================================================
+   NabhaWorks Core — componenti
+   Tema: blu notte / oro (coerente con Metodo e Criteri)
+   Tutti i colori di testo sono espliciti (blindati)
+   ============================================================ */
+
+/* ------------------------------------------------------------
  * Fonti e approfondimenti (fine articolo)
- * ------------------------------------------------------------- */
+ * ------------------------------------------------------------ */
 .nabha-fonti {
     margin-top: 2.5rem;
-    padding: 1.25rem 1.5rem;
-    background: #f7f4ec;
-    border-top: 3px solid #b08d3f;
-    border-radius: 4px;
+    padding: 1.5rem 1.75rem;
+    background: #1a2040;
+    border: 1px solid #2c3563;
+    border-top: 3px solid #e0a44e;
+    border-radius: 6px;
+    color: #e9ecf6;
 }
 
+.entry-content .nabha-fonti h2,
 .nabha-fonti h2 {
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.9rem;
     font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #6b5a2e;
+    letter-spacing: 0.08em;
+    color: #e0a44e;
 }
 
 .nabha-fonti ul {
@@ -23,17 +32,23 @@
 }
 
 .nabha-fonti li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.55rem;
+    color: #e9ecf6;
 }
 
 .nabha-fonti a {
-    color: #8a6d1f;
+    color: #e0a44e;
     text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
-/* -------------------------------------------------------------
+.nabha-fonti a:hover {
+    color: #f0c37a;
+}
+
+/* ------------------------------------------------------------
  * Card serie tematiche — shortcode [nabha_tematiche]
- * ------------------------------------------------------------- */
+ * ------------------------------------------------------------ */
 .nabha-tematiche {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -44,46 +59,49 @@
 .nabha-tematica {
     display: block;
     padding: 1.5rem;
-    background: #f7f4ec;
-    border-top: 3px solid #b08d3f;
-    border-radius: 4px;
+    background: #1a2040;
+    border: 1px solid #2c3563;
+    border-top: 3px solid #e0a44e;
+    border-radius: 6px;
     text-decoration: none;
-    color: inherit;
+    color: #e9ecf6;
     transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .nabha-tematica:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
 }
 
 .nabha-tematica h3 {
     margin: 0 0 .5rem;
-    color: #6b5a2e;
+    color: #e0a44e;
 }
 
 .nabha-tematica p {
     margin: 0 0 .75rem;
     font-size: .95rem;
-    color: #555;
+    color: #a8afc7;
 }
 
 .nabha-tematica-count {
     font-size: .8rem;
     text-transform: uppercase;
     letter-spacing: .05em;
-    color: #8a6d1f;
+    color: #e0a44e;
 }
-/* -------------------------------------------------------------
+
+/* ------------------------------------------------------------
  * Observatorivm — shortcode [nabha_observatorivm]
- * ------------------------------------------------------------- */
+ * ------------------------------------------------------------ */
 .nabha-oss-hero article {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
-    background: #f7f4ec;
-    border: 1px solid #e5ddc9;
-    border-radius: 6px;
+    background: #1a2040;
+    border: 1px solid #2c3563;
+    border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .25);
 }
 
 .nabha-oss-hero-img img {
@@ -103,10 +121,11 @@
     font-size: .75rem;
     text-transform: uppercase;
     letter-spacing: .08em;
-    color: #faf6ee;
-    background: #b08d3f;
+    color: #17120a;
+    background: #e0a44e;
     padding: .25rem .7rem;
     border-radius: 999px;
+    font-weight: 600;
 }
 
 .nabha-oss-hero-body h2 {
@@ -115,33 +134,37 @@
 }
 
 .nabha-oss-hero-body h2 a {
-    color: inherit;
+    color: #e9ecf6;
     text-decoration: none;
 }
 
 .nabha-oss-hero-body h2 a:hover {
-    color: #8a6d1f;
+    color: #e0a44e;
 }
 
 .nabha-oss-meta {
     font-size: .85rem;
     text-transform: uppercase;
     letter-spacing: .04em;
-    color: #8a6d1f;
+    color: #e0a44e;
     margin: 0 0 .5rem;
 }
 
 .nabha-oss-excerpt {
-    color: #444;
+    color: #a8afc7;
 }
 
 .nabha-oss-more {
     display: inline-block;
     margin-top: .5rem;
     font-weight: 600;
-    color: #6b5a2e;
+    color: #e9ecf6;
     text-decoration: none;
-    border-bottom: 2px solid #b08d3f;
+    border-bottom: 2px solid #e0a44e;
+}
+
+.nabha-oss-more:hover {
+    color: #e0a44e;
 }
 
 /* --- Griglia card --- */
@@ -153,16 +176,16 @@
 }
 
 .nabha-oss-card {
-    background: #f7f4ec;
-    border: 1px solid #e5ddc9;
-    border-radius: 6px;
+    background: #1a2040;
+    border: 1px solid #2c3563;
+    border-radius: 8px;
     overflow: hidden;
     transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .nabha-oss-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
 }
 
 .nabha-oss-card-img img {
@@ -178,7 +201,7 @@
     justify-content: center;
     height: 170px;
     font-size: 2.5rem;
-    background: #ece5d3;
+    background: #232a52;
 }
 
 .nabha-oss-card-body {
@@ -192,24 +215,29 @@
 }
 
 .nabha-oss-card-body h3 a {
-    color: inherit;
+    color: #e9ecf6;
     text-decoration: none;
 }
 
 .nabha-oss-card-body h3 a:hover {
-    color: #8a6d1f;
+    color: #e0a44e;
 }
 
 .nabha-oss-card-body p:last-child {
     margin: 0;
     font-size: .92rem;
-    color: #555;
+    color: #a8afc7;
 }
 
 .nabha-oss-archive {
     margin-top: 2.5rem;
     text-align: center;
     font-weight: 600;
+}
+
+.nabha-oss-archive a {
+    color: #e0a44e;
+    text-decoration: none;
 }
 
 /* --- Mobile --- */
